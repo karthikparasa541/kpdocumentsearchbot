@@ -82,8 +82,8 @@ def process_documents(pdf_docs, query):
         retriever=vectorstore.as_retriever()
         )
         
-        response = ask_question(query)
-        return response                
+        response = qa.invoke(query)
+        return response['result']                
         
     except Exception as e:
         st.error(f"An error occurred: {e}")
@@ -133,6 +133,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
