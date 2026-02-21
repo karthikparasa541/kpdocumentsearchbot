@@ -107,7 +107,7 @@ def process_website(web, query):
             memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         )
         response = qa.invoke({"question": query})
-        return response['result']                
+        return response['answer']                
             
     except Exception as e:
         st.error(f"An error occurred: {e}")
@@ -158,6 +158,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
