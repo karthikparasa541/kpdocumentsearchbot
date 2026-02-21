@@ -92,23 +92,23 @@ def process_documents(pdf_docs, query):
 
 def process_website(web, query):
     """Process uploaded PDF documents."""
+    try:
+        loader = WebBaseLoader(web)
+        website_data = loader.load()
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+        splits = text_splitter.split_documents(website_data)
+        embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+        vectorstore = Chroma.from_documents(splits, embeddings)
+        llm = ChatOpenAI(model="gpt-4o", temperature=0.7)
     
-    loader = WebBaseLoader(web)
-    website_data = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    splits = text_splitter.split_documents(website_data)
-    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-    vectorstore = Chroma.from_documents(splits, embeddings)
-    llm = ChatOpenAI(model="gpt-4o", temperature=0.7)
-
-    qa = ConversationalRetrievalChain.from_llm(
-        llm=llm,
-        retriever=vectorstore.as_retriever(),
-        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-    )
-    response = qa.invoke(query)
+        qa = ConversationalRetrievalChain.from_llm(
+            llm=llm,
+            retriever=vectorstore.as_retriever(),
+            memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+        )
+        response = qa.invoke(query)
         return response['result']                
-        
+            
     except Exception as e:
         st.error(f"An error occurred: {e}")
 
@@ -158,6 +158,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
