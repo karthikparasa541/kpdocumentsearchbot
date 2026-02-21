@@ -1,17 +1,5 @@
 #This code is written to create a PDF reading chatbot using RAG techniques
 
-#installing all the required libraries
-%pip install langchain-openai
-%pip install langchain
-%pip install streamlit
-%pip install openai
-%pip install PyPDF2
-%pip install langchain-community
-%pip install faiss-cpu
-%pip install openai
-%pip install tiktoken
-%pip install python-dotenv
-%pip install langchain-classic
 
 # saving the api key
 
@@ -63,4 +51,5 @@ with bt2:
 
 with bt3:
   if st.button("Clear"):
+
     st.write("")
