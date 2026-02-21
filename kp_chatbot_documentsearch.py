@@ -110,7 +110,7 @@ def main():
                         if not pdf_docs:
                             st.error("Please upload at least one PDF file.")
                 #invoking the LLM model with the prompt
-                        else
+                        else:
                                     st.write("***** Searching in the Document ************")
                                     answer = process_documents(pdf_docs, query)
                                     st.write(answer)
@@ -128,5 +128,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
