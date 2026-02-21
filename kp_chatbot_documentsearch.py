@@ -76,7 +76,7 @@ def process_documents(pdf_docs, query):
         embeddings = OpenAIEmbeddings(model = "text-embedding-3-small")
         vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
         llm = ChatOpenAI(temperature=0.7, model_name='gpt-4o-mini')
-        qa = RetrivalQA.from_chain_type(
+        qa = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
         retriever=vectorstore.as_retriever()
@@ -133,6 +133,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
