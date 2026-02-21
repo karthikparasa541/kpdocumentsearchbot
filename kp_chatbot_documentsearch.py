@@ -12,7 +12,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_classic.chains import ConversationalRetrievalChain
 from langchain_core.prompts import PromptTemplate
 from langchain_core.messages import HumanMessage, AIMessage
-from langchain_community.memory import ConversationBufferMemory
+from langchain.memory import ConversationBufferMemory
 import os
 from dotenv import load_dotenv
 
@@ -130,6 +130,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
