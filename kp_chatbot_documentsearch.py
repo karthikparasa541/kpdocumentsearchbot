@@ -76,13 +76,14 @@ def process_documents(pdf_docs, query):
         embeddings = OpenAIEmbeddings(model = "text-embedding-3-small")
         vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
         llm = ChatOpenAI(temperature=0.7, model_name='gpt-4o-mini')
-        qa = ConversationalRetrievalChain.from_llm(
+        qa = RetrivalQA.from_chain_type(
         llm=llm,
-        retriever=vectorstore.as_retriever(), 
-        memory = ConversationBufferMemory(memory_keys ="chat_history", return_messages=True)
+        chain_type="stuff",
+        retriever=vectorstore.as_retriever()
         )
-        response = qa({"question":query})
-        return response['answer']                
+        )
+        response = ask_question(query)
+        return response                
         
     except Exception as e:
         st.error(f"An error occurred: {e}")
@@ -132,6 +133,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
