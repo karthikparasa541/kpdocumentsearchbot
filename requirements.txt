@@ -8,3 +8,5 @@ openai
 tiktoken
 python-dotenv
 langchain-classic
+bs4
+requests
