@@ -7,7 +7,7 @@ import streamlit as st
 from PyPDF2 import PdfReader
 from langchain_openai import ChatOpenAI
 from langchain_text_splitters import CharacterTextSplitter, RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS, chroma
+from langchain_community.vectorstores import FAISS, Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_classic.chains import ConversationalRetrievalChain
 from langchain_core.prompts import PromptTemplate
@@ -158,6 +158,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
