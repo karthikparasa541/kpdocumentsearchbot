@@ -13,7 +13,7 @@ from langchain_classic.chains import ConversationalRetrievalChain
 from langchain_core.prompts import PromptTemplate
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_classic.memory import ConversationBufferMemory
-from langchain.chains import RetrivalQA
+from langchain_community.chains import RetrivalQA
 
 import os
 from dotenv import load_dotenv
@@ -133,6 +133,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
