@@ -6,14 +6,15 @@
 import streamlit as st
 from PyPDF2 import PdfReader
 from langchain_openai import ChatOpenAI
-from langchain_text_splitters import CharacterTextSplitter
-from langchain_community.vectorstores import FAISS
+from langchain_text_splitters import CharacterTextSplitter, RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS, chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_classic.chains import ConversationalRetrievalChain
 from langchain_core.prompts import PromptTemplate
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_classic.memory import ConversationBufferMemory
 from langchain_classic.chains import RetrievalQA
+from langchain_community.document_loaders import WebBaseLoader
 
 import os
 from dotenv import load_dotenv
@@ -89,6 +90,15 @@ def process_documents(pdf_docs, query):
         st.error(f"An error occurred: {e}")
 
 
+def process_website(web, query):
+    """Process uploaded PDF documents."""
+    
+loader = WebBaseLoader(web)
+website_data = loader.load()
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+splits = text_splitter.split_documents(website_data)
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
 
 
 # --- Streamlit UI ---
@@ -123,9 +133,13 @@ def main():
                 
             with bt2:
               if st.button("Search in Website"):
+                      if not web:
+                            st.error("Please enter the website")
                 #invoking the LLM model with the prompt
-                st.write("***** Searching in the Website ************")
-            
+                      else:
+                          st.write("***** Searching in the Website ************")
+                          answer = process_website(web,query)
+                          st.write(answer)
             with bt3:
               if st.button("Clear"):
             
@@ -133,6 +147,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
