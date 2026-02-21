@@ -75,7 +75,8 @@ def process_documents(pdf_docs, query):
         llm = ChatOpenAI(temperature=0.7, model_name='gpt-4o-mini')
         qa = ConversationalRetrievalChain.from_llm(
         llm=llm,
-        retriever=vectorstore.as_retriever()        
+        retriever=vectorstore.as_retriever(), 
+        memory = ConversationBufferMemory(memory_keys ="chat_history", return_messages = true)
         )
         response = qa({"question":query})
         return response['answer']                
@@ -128,6 +129,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
