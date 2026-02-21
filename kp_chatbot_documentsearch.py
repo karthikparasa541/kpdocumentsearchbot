@@ -106,7 +106,7 @@ def process_website(web, query):
             retriever=vectorstore.as_retriever(),
             memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         )
-        response = qa.invoke(query)
+        response = qa.invoke({"question": query})
         return response['result']                
             
     except Exception as e:
@@ -158,6 +158,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
