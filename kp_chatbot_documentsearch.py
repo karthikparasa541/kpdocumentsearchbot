@@ -81,7 +81,7 @@ def process_documents(pdf_docs, query):
         chain_type="stuff",
         retriever=vectorstore.as_retriever()
         )
-        )
+        
         response = ask_question(query)
         return response                
         
@@ -133,6 +133,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
