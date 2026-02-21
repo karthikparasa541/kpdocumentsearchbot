@@ -70,8 +70,9 @@ def process_documents(pdf_docs, query):
             return
 
         text_chunks = get_text_chunks(raw_text)
-        embeddings = OpenAIEmbeddings()
+        embeddings = OpenAIEmbeddings(model = "text-embedding-3-small")
         vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
+        llm = ChatOpenAI(temperature=0.7, model_name='gpt-4o-mini')
         qa = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=vectorstore.as_retriever(),
@@ -92,7 +93,7 @@ def main():
 
             st.header("Multi Modal Chat using RAG📚")
             st.subheader("Chat using a PDF or Website")
-            
+            api_key_loaded = os.getenv("OPENAI_API_KEY") is not None
             web = st.text_input("Enter the Website to read the content:")
             
             pdf_docs = st.file_uploader(
@@ -128,6 +129,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
