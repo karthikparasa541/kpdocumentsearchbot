@@ -24,32 +24,33 @@ load_dotenv()
 
 def main():
 
-st.header("Multi Modal Chat using RAG📚")
-st.subheader("Chat using a PDF or Website")
+            st.header("Multi Modal Chat using RAG📚")
+            st.subheader("Chat using a PDF or Website")
+            
+            web = st.text_input("Enter the Website to read the content:")
+            
+            pdf_docs = st.file_uploader(
+                        "Upload your PDFs here",
+                        type="pdf",
+                        accept_multiple_files=True
+                    )
+            
+            query = st.text_input("Ask questions about your documents:")
+            
+            bt1, bt2, bt3 = st.columns(3)
+            
+            with bt1:
+              if st.button("Search in Document"):
+                #invoking the LLM model with the prompt
+                st.write("***** Searching in the Document ************")
+                
+            with bt2:
+              if st.button("Search in Website"):
+                #invoking the LLM model with the prompt
+                st.write("***** Searching in the Website ************")
+            
+            with bt3:
+              if st.button("Clear"):
+            
+                st.write("")
 
-web = st.text_input("Enter the Website to read the content:")
-
-pdf_docs = st.file_uploader(
-            "Upload your PDFs here",
-            type="pdf",
-            accept_multiple_files=True
-        )
-
-query = st.text_input("Ask questions about your documents:")
-
-bt1, bt2, bt3 = st.columns(3)
-
-with bt1:
-  if st.button("Search in Document"):
-    #invoking the LLM model with the prompt
-    st.write("***** Searching in the Document ************")
-    
-with bt2:
-  if st.button("Search in Website"):
-    #invoking the LLM model with the prompt
-    st.write("***** Searching in the Website ************")
-
-with bt3:
-  if st.button("Clear"):
-
-    st.write("")
