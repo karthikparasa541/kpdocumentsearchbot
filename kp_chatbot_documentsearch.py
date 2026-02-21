@@ -77,7 +77,7 @@ def process_documents(pdf_docs, query):
         qa = ConversationalRetrievalChain.from_llm(
         llm=llm,
         retriever=vectorstore.as_retriever(), 
-        memory = ConversationBufferMemory(memory_keys ="chat_history", return_messages = true)
+        memory = ConversationBufferMemory(memory_keys ="chat_history", return_messages=True)
         )
         response = qa({"question":query})
         return response['answer']                
@@ -130,6 +130,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
 
 
